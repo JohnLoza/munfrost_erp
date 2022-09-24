@@ -1,0 +1,13 @@
+<h1>Archivos de inventario</h1>
+
+<section class="mt-4">
+  <h3>Nueva carga de inventario</h3>
+  <%= render 'form' %>
+</section>
+
+<% if @inventory_files.any? %>
+  <section class="mt-5">
+    <h3>Últimas cargas de inventario</h3>
+    <%= render @inventory_files %>
+  </section>
+<% end %>

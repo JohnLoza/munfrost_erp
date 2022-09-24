@@ -1,0 +1,11 @@
+<%= form_for(InventoryFile.new) do |f| %>
+  <div class="form-group">
+    <%= f.label :file, 'Archivo de inventario' %>
+    <%= f.file_field :file, class: 'form-control',
+                     accept: 'application/xlsx', required: true %>
+  </div>
+  <div class="form-group mt-2">
+    <%= f.submit :Guardar, class: 'btn btn-primary',
+                 data: { confirm: '¿Estás seguro(a)? esto ejecutará una sincronización con Cyberpuerta' } %>
+  </div>
+<% end %>

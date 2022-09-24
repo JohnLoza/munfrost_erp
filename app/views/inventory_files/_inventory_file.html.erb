@@ -1,0 +1,11 @@
+<hr>
+<div class="row">
+  <div class="col-lg-6">
+    <%= link_to(inventory_file.file.blob.filename,
+                url_for(inventory_file.file),
+                target: '_blank') %>
+  </div>
+  <div class="col-lg-6">
+    <%= content_tag(:span, l(inventory_file.created_at, format: :long)) %>
+  </div>
+</div>
