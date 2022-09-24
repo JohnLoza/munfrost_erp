@@ -73,3 +73,4 @@ group :test do
 end
 
 gem 'bootstrap', '~> 5.2.1'
+gem 'devise', '~> 4.8.1'
