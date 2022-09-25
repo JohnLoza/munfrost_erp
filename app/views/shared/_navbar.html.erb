@@ -12,7 +12,8 @@
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
             <li>
-              <%= link_to('Cerrar sesión', nil, class: 'dropdown-item') %>
+              <%= link_to('Cerrar sesión', destroy_user_session_path, class: 'dropdown-item',
+                          data: { 'turbo-method': :delete }) %>
             </li>
           </ul>
         </li>
