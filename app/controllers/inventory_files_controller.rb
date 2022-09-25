@@ -6,12 +6,13 @@ class InventoryFilesController < AuthenticatedController
   end
 
   def create
-    if InventoryFile.create(inventory_file_params)
-      # TODO set success message
-    else
-      # TODO set error message
-    end
-    redirect_to(root_path)
+    inv_file = InventoryFile.create!(inventory_file_params)
+    inv_file.sync_to_cyberpuerta
+    flash[:success] = 'Sincronización exitosa'
+    redirect_to(inventory_files_path)
+  rescue => error
+    flash[:danger] = error.message
+    redirect_to(inventory_files_path)
   end
 
   private

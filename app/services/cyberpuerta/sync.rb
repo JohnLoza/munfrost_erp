@@ -19,8 +19,10 @@ module Cyberpuerta
       request["Content-Type"] = "application/json"
       request["Authorization"] = "Bearer #{ENV['CYBERPUERTA_TOKEN']}"
       request.body = JSON.dump(@payload)
+      Rails.logger.debug("Cyberpuerta sync with payload: \n#{@payload.to_json}")
 
       response = https.request(request)
+      Rails.logger.debug("Cyberpuerta response: #{response.read_body}")
       parsed_response = JSON.parse(response.read_body)
       return if parsed_response['message'] == 'Products uploaded successfully!'
 

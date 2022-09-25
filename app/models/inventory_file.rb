@@ -8,8 +8,6 @@ class InventoryFile < ApplicationRecord
 
   scope :recent, -> { order(created_at: :desc) }
 
-  after_create :sync_to_cyberpuerta
-
   def sync_to_cyberpuerta
     save_payload
     Cyberpuerta::Sync.call(read_payload)
