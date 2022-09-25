@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class InventoryFilesController < ApplicationController
+class InventoryFilesController < AuthenticatedController
   def index
     @inventory_files = InventoryFile.recent.last(30)
   end
