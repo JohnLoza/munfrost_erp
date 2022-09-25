@@ -1,0 +1,9 @@
+<section class="alerts-container">
+  <% flash.each do |type, message| %>
+    <% next unless %w[success warning danger primary].include?(type) %>
+    <div class="alert alert-<%= type %> alert-dismissible fade show" role="alert">
+      <%= message %>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+  <% end %>
+</section>
