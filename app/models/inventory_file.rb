@@ -1,8 +1,41 @@
+# frozen_string_literal: true
+
 class InventoryFile < ApplicationRecord
   has_one_attached(:file)
+  has_one_attached(:payload)
 
   validates(:file, presence: true)
 
   scope :recent, -> { order(created_at: :desc) }
+
+  after_create :sync_to_cyberpuerta
+
+  def sync_to_cyberpuerta
+    save_payload
+    update!(error_msg: nil, error_location: nil)
+  rescue => error
+    Rails.logger.error("Got an error while syncing to cyberpuerta")
+    Rails.logger.error("#{error.message} | #{error.backtrace.first}")
+    update!(error_msg: error.message, error_location: error.backtrace.first)
+    raise(error)
+  end
+
+  private
+
+  def file_attachment_path
+    @file_attachment_path ||= ActiveStorage::Blob.service.path_for(file.key)
+  end
+
+  def payload_attachment_path
+    @payload_attachment_path ||= ActiveStorage::Blob.service.path_for(payload.key)
+  end
+
+  def save_payload
+    filename = "#{Time.now.to_i}.json"
+    payload_filepath = Rails.root.join("tmp/#{filename}")
+    cyberpuerta_payload = Cyberpuerta::Payload.call(file_attachment_path)
+    File.write(payload_filepath, cyberpuerta_payload.to_json)
+    payload.attach(io: File.open(payload_filepath), filename: filename)
+  end
 end
 
