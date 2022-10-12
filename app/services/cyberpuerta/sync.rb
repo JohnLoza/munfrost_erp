@@ -32,12 +32,7 @@ module Cyberpuerta
     private
 
     def url
-      @url ||=
-        if Rails.env.production?
-          URI("https://cyberpuerta.mx/api/provider/articles/full-catalog")
-        else
-          URI("https://base.cyberpuerta.mx/api/provider/articles/full-catalog")
-        end
+      @url ||= URI("https://base.cyberpuerta.mx/api/provider/articles/full-catalog")
     end
   end
 end
