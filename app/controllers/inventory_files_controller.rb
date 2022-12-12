@@ -2,7 +2,7 @@
 
 class InventoryFilesController < AuthenticatedController
   def index
-    @inventory_files = InventoryFile.recent.last(30)
+    @inventory_files = InventoryFile.recent.first(30)
   end
 
   def create
